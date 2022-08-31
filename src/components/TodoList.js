@@ -1,5 +1,4 @@
-(function(){
-
+const TodoList = () => {
     var todoList   = document.querySelector('.todo__list');
     var todoSubmit = document.querySelector('.todo__submit');
   
@@ -62,6 +61,7 @@
             element.appendChild(item)
             item.addEventListener('click', function(){
                 removeTodo(todos[i].id)
+                console.log(todos[i].id)
             });
       }
       todoList.replaceChildren(element)
@@ -70,9 +70,9 @@
     todoSubmit.addEventListener('click', function(){
         addTodo()
         console.log(todos)
-        renderTodos()
+        renderTodos(todos)
     });
-  
-    
-    renderTodos(todos)
-  }());
+    console.log("works")
+}
+
+export default TodoList
