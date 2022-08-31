@@ -1,27 +1,28 @@
-const TodoList = () => {
-    var todoList   = document.querySelector('.todo__list');
-    var todoSubmit = document.querySelector('.todo__submit');
+ class TodoList {
+    constructor() {
+        this.todoList = document.querySelector('.todo__list');
+        this.todoSubmit = document.querySelector('.todo__submit');
+        this.todos = [
+            {
+                id: 1,
+                title: "Homework",
+                description: "Refactor app",
+                dueDate: "09/12/2022",
+                high_priority: true
+            },
+            {
+                id: 2,
+                title: "Fix UI",
+                description: "margins off",
+                dueDate: "09/11/2022",
+                high_priority: false
+            },
+        ];
+    }
   
-    // Array of objects containing todos
-    var todos = [
-        {
-            id: 1,
-            title: "Homework",
-            description: "Refactor app",
-            dueDate: "09/12/2022",
-            high_priority: true
-        },
-        {
-            id: 2,
-            title: "Fix UI",
-            description: "margins off",
-            dueDate: "09/11/2022",
-            high_priority: false
-        },
-    ];
-  
+     
     // Factory function for todo
-    function createTodo(title, description, dueDate, high_priority){
+    createTodo(title, description, dueDate, high_priority){
         return {
             id: todos.length + 1,
             title: title,
@@ -31,48 +32,48 @@ const TodoList = () => {
         }
     }
     
-    function removeTodo(id){
+    removeTodo(id){
       todos = todos.filter((obj) => obj.id !== id);
       renderTodos(todos)
     }
 
     // Push contents of inputs to array
-    function addTodo(){
+    addTodo(){
         todos.push(createTodo( 
             document.getElementById("title").value, 
             document.getElementById("description").value, 
             document.getElementById("due").value,
             document.getElementById("high_priority").checked
-        ));
+        ))
     }
   
     // Render all items in array
-    function renderTodos(){
+    renderTodos(){
       const element = document.createElement("div")
-        for(let i = 0; i < todos.length; i ++) {
+        for(let i = 0; i < this.todos.length; i ++) {
             const item = document.createElement("p")
             item.innerText = `
-                id: ${todos[i].id}
-                title: ${todos[i].title}
-                description: ${todos[i].description}
-                due: ${todos[i].dueDate}
-                high priority: ${todos[i].priority}                
+                id: ${this.todos[i].id}
+                title: ${this.todos[i].title}
+                description: ${this.todos[i].description}
+                due: ${this.todos[i].dueDate}
+                high priority: ${this.todos[i].priority}                
             `
             element.appendChild(item)
             item.addEventListener('click', function(){
-                removeTodo(todos[i].id)
-                console.log(todos[i].id)
-            });
+                removeTodo(this.todos[i].id)
+            })
       }
-      todoList.replaceChildren(element)
+      this.todoList.replaceChildren(element);
+      console.log("rneder")
     }
-  
-    todoSubmit.addEventListener('click', function(){
-        addTodo()
-        console.log(todos)
-        renderTodos(todos)
-    });
-    console.log("works")
-}
 
-export default TodoList
+  
+    // todoSubmit.addEventListener('click', function(){
+    //     addTodo()
+    //     console.log(todos)
+    //     renderTodos()
+    // });
+
+}
+export default TodoList;
