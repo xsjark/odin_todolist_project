@@ -5,14 +5,17 @@
     <title>Project Name</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"><script defer src="main.js"></script></head>
   <body>
-    <form name="form">
+    <form name="form" id="form-container">
       <input type="text" id="title" placeholder="title" required/>
       <input type="text" id="description" placeholder="description"/>
-      <input type="date" id="due" placeholder="due"/>
-      <label for="high_priority">high priority</label>
-      <input type="checkbox" id="high_priority"/>
+      <input type="date" id="dueDate" placeholder="due"/>
+      <label for="highPriority">high priority</label>
+      <input type="checkbox" id="highPriority"/>
       <button type="button" class="todo__submit">Add Todo</button>
   </form>
+  <div class="container">
+    <div class="project__list"></div>
     <div class="todo__list"></div>
+  </div>
   </body>
 </html>
