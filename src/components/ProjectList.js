@@ -1,12 +1,11 @@
 
-const { default: projects } = require("../hardcode");
 const TodoList = require("./TodoList");
 const setAttributes = require("../utils");
 
 class ProjectList {
-    constructor() {
+    constructor(array) {
         this.projectList = document.querySelector('.project__list');
-        this.projects = projects
+        this.projects = array
     }
   
      
