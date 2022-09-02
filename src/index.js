@@ -19,6 +19,7 @@ import "./style.css"
 
     let projectlist = new ProjectList()
     projectlist.renderProjects()
+    projectlist.renderForm()
 
     
 

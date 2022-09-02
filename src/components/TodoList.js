@@ -12,7 +12,7 @@ const setAttributes = require("../utils");
     // Factory function for todo
     createTodo(title, description, dueDate, high_priority){
         return {
-            id: this.todos.length + 1,
+            id: new Date().getTime() * Math.random() * 100000,
             title: title,
             description: description,
             dueDate: dueDate,
@@ -44,7 +44,7 @@ const setAttributes = require("../utils");
 
     renderForm() {
         const form = document.createElement("form")
-        const formTitle = document.createElement("legend")
+        const formTitle = document.createElement("p")
         formTitle.innerText = this.project.title
         const titleInput = document.createElement("input")
         setAttributes(titleInput, {
@@ -85,8 +85,8 @@ const setAttributes = require("../utils");
             this.addTodo()
             this.renderTodos()
         });
-        form.append(titleInput, descriptionInput, dueDateInput, highPriorityLabel, highPriorityInput, addTodoButton, formTitle)
-        document.getElementById("form-container").replaceChildren(form)
+        form.append(formTitle, titleInput, descriptionInput, dueDateInput, highPriorityLabel, highPriorityInput, addTodoButton)
+        document.getElementById("todo__form-container").replaceChildren(form)
         
     }
   
@@ -102,8 +102,11 @@ const setAttributes = require("../utils");
                 due: ${this.todos[i].dueDate}
                 high priority: ${this.todos[i].priority}                
             `
-            element.appendChild(item)
-            item.addEventListener('click', () =>{
+            const deleteButton = document.createElement("button")
+            deleteButton.innerText = "Delete"
+            element.append(item, deleteButton)
+            
+            deleteButton.addEventListener('click', () =>{
                 this.removeTodo(this.todos[i].id)
             })
       }

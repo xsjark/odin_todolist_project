@@ -1,6 +1,7 @@
 
 const { default: projects } = require("../hardcode");
 const TodoList = require("./TodoList");
+const setAttributes = require("../utils");
 
 class ProjectList {
     constructor() {
@@ -9,32 +10,46 @@ class ProjectList {
     }
   
      
-    // // Factory function for todo
-    // createProject(title, description, dueDate, high_priority){
-    //     // return {
-    //     //     id: this.todos.length + 1,
-    //     //     title: title,
-    //     //     description: description,
-    //     //     dueDate: dueDate,
-    //     //     high_priority:  high_priority
-    //     // }
-    // }
+    // Factory function for todo
+    createProject(title){
+        return {
+            id: new Date().getTime() * Math.random() * 100000,
+            title: title,
+            todos: []
+        }
+    }
     
-    // removeProject(id){
-    // //   this.todos = this.todos.filter((obj) => obj.id !== id);
-    // //   this.renderTodos()
-    // };
+    removeProject(id){
+      this.projects = this.projects.filter((obj) => obj.id !== id);
+      this.renderProjects()
+    };
 
-    // // Push contents of inputs to array
-    // addProject(){
-    //     // this.todos.push(this.createTodo( 
-    //     //     document.getElementById("title").value, 
-    //     //     document.getElementById("description").value, 
-    //     //     document.getElementById("due").value,
-    //     //     document.getElementById("high_priority").checked
-    //     // ))
-    // }
-  
+    // Push contents of inputs to array
+    addProject(){
+        this.projects.push(this.createProject( 
+            document.getElementById("title").value, 
+        ))
+    }
+    renderForm() {
+        const form = document.createElement("form")
+        const formTitle = document.createElement("legend")
+        const titleInput = document.createElement("input")
+        setAttributes(titleInput, {
+            id: "title",
+            type: "text",
+            placeholder: "project title",
+            required: true
+        })
+        const addTodoButton = document.createElement("button")
+        addTodoButton.innerText = "Add project"
+        addTodoButton.addEventListener('click', (event) => {
+            event.preventDefault()
+            this.addProject()
+            this.renderProjects()
+        });
+        form.append(titleInput, addTodoButton, formTitle)
+        document.getElementById("project__form-container").replaceChildren(form)
+    }
     // Render all items in array
     renderProjects(){
       const element = document.createElement("div")
@@ -46,7 +61,12 @@ class ProjectList {
                 description: ${this.projects[i].description}
                 due: ${this.projects[i].dueDate}               
             `
-            element.appendChild(item)
+            const deleteButton = document.createElement("button")
+            deleteButton.innerText = "Delete"
+            element.append(item, deleteButton)
+            deleteButton.addEventListener('click', () =>{
+                this.removeProject(this.projects[i].id)
+            })
             item.addEventListener('click', () =>{
                 let button = new TodoList(this.projects, i)
                 // this.removeTodo(this.todos[i].id)
