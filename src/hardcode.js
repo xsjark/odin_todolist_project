@@ -9,14 +9,14 @@ const projects = [
                 title: "Write report",
                 description: "Report for Mitsubishi",
                 dueDate: "09/12/2022",
-                priority: "high"
+                high_priority: true
             },
             {
                 id: "Work2",
                 title: "Do minutes",
                 description: "Minutes of Monday's meeting",
                 dueDate: "09/11/2022",
-                priority: "low"
+                high_priority: false
             },
         ]
     },
@@ -29,14 +29,14 @@ const projects = [
                 title: "CS Homework",
                 description: "Algorithms and data structures",
                 dueDate: "09/12/2022",
-                priority: "high"
+                high_priority: true
             },
             {
                 id: "School2",
                 title: "Lab report",
                 description: "iGG assays",
                 dueDate: "09/11/2022",
-                priority: "low"
+                high_priority: false
             },
         ]
     },

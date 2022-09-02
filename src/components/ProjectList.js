@@ -8,12 +8,11 @@ class ProjectList {
         this.projects = array
     }
   
-     
     // Factory function for todo
-    createProject(title){
+    createProject(){
         return {
             id: new Date().getTime() * Math.random() * 100000,
-            title: title,
+            title:  document.getElementById("title").value,
             todos: []
         }
     }
@@ -25,13 +24,11 @@ class ProjectList {
 
     // Push contents of inputs to array
     addProject(){
-        this.projects.push(this.createProject( 
-            document.getElementById("title").value, 
-        ))
+        this.projects.push(this.createProject())
     }
+
     renderForm() {
         const form = document.createElement("form")
-        const formTitle = document.createElement("legend")
         const titleInput = document.createElement("input")
         setAttributes(titleInput, {
             id: "title",
@@ -46,7 +43,7 @@ class ProjectList {
             this.addProject()
             this.renderProjects()
         });
-        form.append(titleInput, addTodoButton, formTitle)
+        form.append(titleInput, addTodoButton)
         document.getElementById("project__form-container").replaceChildren(form)
     }
     // Render all items in array
@@ -56,9 +53,7 @@ class ProjectList {
             const item = document.createElement("p")
             item.innerText = `
                 id: ${this.projects[i].id}
-                title: ${this.projects[i].title}
-                description: ${this.projects[i].description}
-                due: ${this.projects[i].dueDate}               
+                title: ${this.projects[i].title}          
             `
             const deleteButton = document.createElement("button")
             deleteButton.innerText = "Delete"
@@ -68,15 +63,8 @@ class ProjectList {
             })
             item.addEventListener('click', () =>{
                 let button = new TodoList(this.projects, i)
-                // this.removeTodo(this.todos[i].id)
                 button.renderTodos()
                 button.renderForm()
-                 // Add button listener
-                //  let submit_button = document.querySelector('.todo__submit')
-                //  submit_button.cloneNode(true).addEventListener('click', function(){
-                //     button.addTodo()
-                //     button.renderTodos()
-                // });
             })
             
       }

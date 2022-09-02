@@ -10,15 +10,14 @@ const setAttributes = require("../utils");
   
      
     // Factory function for todo
-    createTodo(title, description, dueDate, high_priority){
+    createTodo(){
         return {
             id: new Date().getTime() * Math.random() * 100000,
-            title: title,
-            description: description,
-            dueDate: dueDate,
-            high_priority:  high_priority
-        }
-        
+            title: document.getElementById("title").value,
+            description: document.getElementById("description").value,
+            dueDate: document.getElementById("dueDate").value,
+            high_priority:  document.getElementById("highPriority").checked
+        }  
     }
     
     removeTodo(id){
@@ -28,23 +27,12 @@ const setAttributes = require("../utils");
 
     // Push contents of inputs to array
     addTodo(){
-        this.todos.push(this.createTodo( 
-            document.getElementById("title").value, 
-            document.getElementById("description").value, 
-            document.getElementById("dueDate").value,
-            document.getElementById("highPriority").checked
-        ))
-        console.log(
-            document.getElementById("title").value, 
-            document.getElementById("description").value, 
-            document.getElementById("dueDate").value,
-            document.getElementById("highPriority").checked
-        )
+        this.todos.push(this.createTodo())
     }
 
     renderForm() {
         const form = document.createElement("form")
-        const formTitle = document.createElement("p")
+        const formTitle = document.createElement("small")
         formTitle.innerText = this.project.title
         const titleInput = document.createElement("input")
         setAttributes(titleInput, {
@@ -100,7 +88,7 @@ const setAttributes = require("../utils");
                 title: ${this.todos[i].title}
                 description: ${this.todos[i].description}
                 due: ${this.todos[i].dueDate}
-                high priority: ${this.todos[i].priority}                
+                priority: ${this.todos[i].high_priority ? "high" : "low"}                
             `
             const deleteButton = document.createElement("button")
             deleteButton.innerText = "Delete"
