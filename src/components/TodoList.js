@@ -32,8 +32,6 @@ const setAttributes = require("../utils");
 
     renderForm() {
         const form = document.createElement("form")
-        const formTitle = document.createElement("small")
-        formTitle.innerText = this.project.title
         const titleInput = document.createElement("input")
         setAttributes(titleInput, {
             id: "title",
@@ -73,7 +71,7 @@ const setAttributes = require("../utils");
             this.addTodo()
             this.renderTodos()
         });
-        form.append(formTitle, titleInput, descriptionInput, dueDateInput, highPriorityLabel, highPriorityInput, addTodoButton)
+        form.append(titleInput, descriptionInput, dueDateInput, highPriorityLabel, highPriorityInput, addTodoButton)
         document.getElementById("todo__form-container").replaceChildren(form)
         
     }
