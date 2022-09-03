@@ -106,5 +106,9 @@ const setAttributes = require("../utils");
       this.todoList.replaceChildren(element);
     //    console.log(this.todos)
     }
+
+    clearTodos() {
+        this.todoList.replaceChildren()
+    }
 }
 module.exports = TodoList;

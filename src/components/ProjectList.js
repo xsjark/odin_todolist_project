@@ -3,7 +3,7 @@ const TodoList = require("./TodoList");
 const setAttributes = require("../utils");
 
 class ProjectList {
-    constructor(array) {
+    constructor(array, index) {
         this.projectList = document.querySelector('.project__list');
         this.projects = array
     }
@@ -21,6 +21,7 @@ class ProjectList {
       this.projects = this.projects.filter((obj) => obj.id !== id);
       localStorage.setItem('data', JSON.stringify(this.projects))
       this.renderProjects()
+      console.log(this.projects)
     };
 
     // Push contents of inputs to array
@@ -61,11 +62,12 @@ class ProjectList {
             const deleteButton = document.createElement("button")
             deleteButton.innerText = "Delete"
             element.append(item, deleteButton)
+            let button = new TodoList(this.projects, i)
             deleteButton.addEventListener('click', () =>{
                 this.removeProject(this.projects[i].id)
+                button.clearTodos()
             })
             item.addEventListener('click', () =>{
-                let button = new TodoList(this.projects, i)
                 button.renderTodos()
                 button.renderForm()
             })
@@ -74,6 +76,8 @@ class ProjectList {
       
       this.projectList.replaceChildren(element);
     //   console.log("rneder")
+    
     }
+    
 }
 module.exports = ProjectList;
