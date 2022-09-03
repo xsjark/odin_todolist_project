@@ -19,12 +19,14 @@ class ProjectList {
     
     removeProject(id){
       this.projects = this.projects.filter((obj) => obj.id !== id);
+      localStorage.setItem('data', JSON.stringify(this.projects))
       this.renderProjects()
     };
 
     // Push contents of inputs to array
     addProject(){
         this.projects.push(this.createProject())
+        localStorage.setItem('data', JSON.stringify(this.projects))
     }
 
     renderForm() {
@@ -46,7 +48,7 @@ class ProjectList {
         form.append(titleInput, addTodoButton)
         document.getElementById("project__form-container").replaceChildren(form)
     }
-    
+
     // Render all items in array
     renderProjects(){
       const element = document.createElement("div")

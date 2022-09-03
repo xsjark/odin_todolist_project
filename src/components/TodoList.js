@@ -6,6 +6,9 @@ const setAttributes = require("../utils");
         this.todoSubmit = document.querySelector('.todo__submit');
         this.todos = array[index].todos
         this.project = array[index]
+        this.data = array
+        this.index = index
+        this.titleSelector =  document.getElementById("title")
     };
   
      
@@ -13,52 +16,56 @@ const setAttributes = require("../utils");
     createTodo(){
         return {
             id: new Date().getTime() * Math.random() * 100000,
-            title: document.getElementById("title").value,
-            description: document.getElementById("description").value,
-            dueDate: document.getElementById("dueDate").value,
-            high_priority:  document.getElementById("highPriority").checked
+            title: document.getElementById("todo__title").value,
+            description: document.getElementById("todo__description").value,
+            dueDate: document.getElementById("todo__dueDate").value,
+            high_priority:  document.getElementById("todo__highPriority").checked
         }  
     }
     
     removeTodo(id){
       this.todos = this.todos.filter((obj) => obj.id !== id);
       this.renderTodos()
+      this.data[this.index].todos = this.todos
+      console.log(this.data)
+      localStorage.setItem('data', JSON.stringify(this.data))
     }
 
     // Push contents of inputs to array
     addTodo(){
-        this.todos.push(this.createTodo())
+        let newTodo = this.createTodo()
+        this.todos.push(newTodo)
+        localStorage.setItem('data', JSON.stringify(this.data))
     }
 
     renderForm() {
         const form = document.createElement("form")
         const titleInput = document.createElement("input")
         setAttributes(titleInput, {
-            id: "title",
+            id: "todo__title",
             type: "text",
             placeholder: "title",
             required: true
         })
         const descriptionInput = document.createElement("input")
         setAttributes(descriptionInput, {
-            id: "description",
+            id: "todo__description",
             type: "text",
             placeholder: "description"
         })
         const dueDateInput = document.createElement("input")
         setAttributes(dueDateInput, {
-            id: "dueDate",
+            id: "todo__dueDate",
             type: "date",
             placeholder: "due"
         })
         const highPriorityLabel = document.createElement("label")
-        highPriorityLabel.innerText = "high priority"
         setAttributes(highPriorityLabel, {
-            for: "highPriority"
+            for: "todo__highPriority"
         })
         const highPriorityInput = document.createElement("input")
         setAttributes(highPriorityInput, {
-            id: "highPriority",
+            id: "todo__highPriority",
             type: "checkbox"
         })
         const addTodoButton = document.createElement("button")
@@ -97,7 +104,7 @@ const setAttributes = require("../utils");
             })
       }
       this.todoList.replaceChildren(element);
-      console.log(this.todos)
+    //    console.log(this.todos)
     }
 }
 module.exports = TodoList;
