@@ -46,6 +46,7 @@ class ProjectList {
         form.append(titleInput, addTodoButton)
         document.getElementById("project__form-container").replaceChildren(form)
     }
+    
     // Render all items in array
     renderProjects(){
       const element = document.createElement("div")
